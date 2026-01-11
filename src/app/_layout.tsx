@@ -4,7 +4,7 @@ import {
   DefaultTheme,
   ThemeProvider,
 } from "@react-navigation/native";
-import { Stack } from "expo-router";
+import { Stack, useSegments } from "expo-router";
 import { useColorScheme } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
@@ -14,6 +14,7 @@ import { initDb } from "../db/initDb";
 export default function RootLayout() {
   const colorScheme = useColorScheme();
   const insets = useSafeAreaInsets();
+
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <SQLiteProvider
@@ -25,10 +26,12 @@ export default function RootLayout() {
           screenOptions={{
             headerShown: false,
             contentStyle: { paddingTop: insets.top },
-            // animation: "fade_from_bottom",
+            animation: "none",
           }}
         >
+          <Stack.Screen name="(onboarding)" />
           <Stack.Screen name="(auth)" />
+          <Stack.Screen name="(protected)" />
         </Stack>
         <StatusBar style="auto" />
       </SQLiteProvider>

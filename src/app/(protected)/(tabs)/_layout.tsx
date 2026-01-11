@@ -12,11 +12,10 @@ export default function TabLayout() {
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? "dark"].tint,
         headerShown: false,
-        animation: "fade",
       }}
     >
       <Tabs.Screen
-        name="home"
+        name="(home)"
         options={{
           title: "Home",
           tabBarIcon: ({ color }) => (
@@ -26,7 +25,7 @@ export default function TabLayout() {
       />
 
       <Tabs.Screen
-        name="scanner"
+        name="(scanner)"
         options={{
           title: "Scan",
           tabBarIcon: ({ color }) => (
@@ -39,11 +38,12 @@ export default function TabLayout() {
               <AntDesign name="scan" size={24} color={color} />
             </View>
           ),
+          tabBarStyle: { display: "none" },
         }}
       />
 
       <Tabs.Screen
-        name="menu"
+        name="(menu)"
         options={{
           title: "Menu",
           tabBarIcon: ({ color }) => (
@@ -52,7 +52,7 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="map"
+        name="(map)"
         options={{
           href: null,
           headerShown: false,

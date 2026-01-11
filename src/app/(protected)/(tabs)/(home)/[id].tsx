@@ -70,7 +70,7 @@ const OutletDetailsScreen = () => {
           activeOpacity={0.8}
           onPress={() =>
             router.push({
-              pathname: "/map/map",
+              pathname: "/(protected)/(tabs)/(map)/map",
               params: outlet,
             })
           }

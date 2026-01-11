@@ -112,7 +112,6 @@ const MenuScreen = () => {
 
   return (
     <View className="flex-1 bg-white">
-      {/* Header */}
       <View className="h-14 items-center justify-center bg-stone-200">
         <Text className="text-lg font-semibold">Menu</Text>
       </View>
@@ -129,7 +128,6 @@ const MenuScreen = () => {
                 <TextInput
                   value={value}
                   onChangeText={onChange}
-                  placeholder="User Name"
                   className="border border-gray-300 rounded-lg px-3 py-3"
                 />
               )}
@@ -141,7 +139,6 @@ const MenuScreen = () => {
             )}
           </View>
 
-          {/* Phone */}
           <View>
             <Text className="mb-1 font-semibold text-gray-700">
               Phone Number
@@ -155,7 +152,6 @@ const MenuScreen = () => {
                   value={value}
                   onChangeText={onChange}
                   keyboardType="numeric"
-                  placeholder="Phone Number"
                   className="border border-gray-300 rounded-lg px-3 py-3"
                 />
               )}
@@ -177,7 +173,6 @@ const MenuScreen = () => {
                 <TextInput
                   value={value}
                   onChangeText={onChange}
-                  placeholder="Password"
                   className="border border-gray-300 rounded-lg px-3 py-3"
                   secureTextEntry={true}
                 />

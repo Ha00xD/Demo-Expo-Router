@@ -4,7 +4,10 @@ import { createJSONStorage, devtools, persist } from 'zustand/middleware';
 
 interface AuthState {
     token: string | null;
+    isFirstTime: boolean;
+
     setToken: (token: string | null) => void;
+    setIsFirstTime: (isFirstTime: boolean) => void;
 
 }
 
@@ -13,7 +16,10 @@ export const useAuthStore = create<AuthState>()(
         persist(
             (set, get) => ({
                 token: null,
+                isFirstTime: true,
+
                 setToken: (token) => set({ token }),
+                setIsFirstTime: (isFirstTime) => set({ isFirstTime })
             }),
             {
                 name: 'app-storage',

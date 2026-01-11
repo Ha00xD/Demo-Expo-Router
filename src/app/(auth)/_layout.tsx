@@ -1,16 +1,19 @@
-import React from "react";
+import { useAuthStore } from "@/src/store/useAuthStore";
 import { Redirect, Stack } from "expo-router";
-import { useAuthStore } from "@/src/constants/useAuthStore";
+import React from "react";
 
 const AuthLayout = () => {
-  const { token } = useAuthStore();
+  const { isFirstTime, token } = useAuthStore();
 
-  if (token) return <Redirect href="/(tabs)/home" />;
+  if (isFirstTime) return <Redirect href="/(onboarding)/" />;
+
+  if (token) return <Redirect href="/(protected)/(tabs)/(home)/" />;
 
   return (
     <Stack
       screenOptions={{
         headerShown: false,
+        animation: "slide_from_right",
       }}
     />
   );

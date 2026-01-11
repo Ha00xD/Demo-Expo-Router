@@ -1,11 +1,11 @@
-import { View, Text, Alert, Pressable, TouchableOpacity } from "react-native";
-import React, { useEffect, useState } from "react";
-import { outletsData } from "@/src/mock/OutletData";
-import { useSQLiteContext } from "expo-sqlite";
 import { useGetOutlets } from "@/src/hooks/useGetOutlets";
+import { outletsData } from "@/src/mock/OutletData";
+import { useAuthStore } from "@/src/store/useAuthStore";
 import { FlashList } from "@shopify/flash-list";
 import { router } from "expo-router";
-import { useAuthStore } from "@/src/constants/useAuthStore";
+import { useSQLiteContext } from "expo-sqlite";
+import React, { useEffect, useState } from "react";
+import { Alert, Text, TouchableOpacity, View } from "react-native";
 
 const HomeScreen = () => {
   const db = useSQLiteContext();
@@ -64,7 +64,7 @@ const HomeScreen = () => {
       <TouchableOpacity
         onPress={() =>
           router.push({
-            pathname: "/(tabs)/home/details/[id]",
+            pathname: "/(tabs)/(home)/[id]",
             params: { id: item.id },
           })
         }
@@ -147,7 +147,9 @@ const HomeScreen = () => {
 
         <TouchableOpacity
           className="flex-1 bg-red-700 py-3 rounded-lg justify-center"
-          onPress={() => router.push("/map/map")}
+          onPress={() =>
+            router.push({ pathname: "/(protected)/(tabs)/(map)/map" })
+          }
         >
           <Text className="text-white text-center font-semibold">Map</Text>
         </TouchableOpacity>

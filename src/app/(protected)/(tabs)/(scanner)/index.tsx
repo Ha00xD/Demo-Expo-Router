@@ -67,7 +67,7 @@ const ScannerScreen = () => {
                 autoPlay
                 loop
                 style={{ width: 220, height: 220 }}
-                source={require("../../../assets/json/Scanner.json")}
+                source={require("../../../../assets/json/Scanner.json")}
                 colorFilters={[
                   { keypath: "**.Fill 1", color: "white" },
                   { keypath: "**.Stroke 1", color: "white" },

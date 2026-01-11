@@ -1,9 +1,10 @@
 import { Colors } from "@/src/constants/theme";
-import { useAuthStore } from "@/src/constants/useAuthStore";
+import { useAuthStore } from "@/src/store/useAuthStore";
 import { Feather } from "@expo/vector-icons";
 import { useTheme } from "@react-navigation/native";
 import { Link } from "expo-router";
 import React, { useState } from "react";
+import { Controller, useForm } from "react-hook-form";
 import {
   ActivityIndicator,
   Alert,
@@ -16,7 +17,6 @@ import {
   useColorScheme,
   View,
 } from "react-native";
-import { Controller, useForm } from "react-hook-form";
 
 export default function Login() {
   const { colors } = useTheme();
@@ -38,7 +38,7 @@ export default function Login() {
     }
 
     setLoading(true);
-
+    reset();
     try {
       await new Promise((resolve) => setTimeout(resolve, 3000));
 
