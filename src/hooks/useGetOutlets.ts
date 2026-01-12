@@ -1,5 +1,5 @@
-import { useEffect, useState, useCallback } from "react";
 import { useSQLiteContext } from "expo-sqlite";
+import { useCallback, useEffect, useState } from "react";
 
 export const useGetOutlets = () => {
 	const db = useSQLiteContext();

@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, Alert } from "react-native";
 import { CameraView, useCameraPermissions } from "expo-camera";
-import LottieView from "lottie-react-native";
 import * as ImagePicker from "expo-image-picker";
+import LottieView from "lottie-react-native";
+import React, { useEffect, useState } from "react";
+import { Alert, StyleSheet, Text, View } from "react-native";
 import Header from "@/src/components/HeaderBack";
 
 const ScannerScreen = () => {

@@ -1,7 +1,7 @@
-import { View, Text, TouchableOpacity, ActivityIndicator } from "react-native";
 import { router, useLocalSearchParams } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
 import { useEffect, useState } from "react";
+import { ActivityIndicator, Text, TouchableOpacity, View } from "react-native";
 import Header from "@/src/components/HeaderBack";
 
 const OutletDetailsScreen = () => {

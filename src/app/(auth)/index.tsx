@@ -1,6 +1,5 @@
-import { Colors } from "@/src/constants/theme";
-import { useAuthStore } from "@/src/store/useAuthStore";
 import { Feather } from "@expo/vector-icons";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useTheme } from "@react-navigation/native";
 import { Link } from "expo-router";
 import React, { useState } from "react";
@@ -18,7 +17,8 @@ import {
 	View,
 } from "react-native";
 import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { Colors } from "@/src/constants/theme";
+import { useAuthStore } from "@/src/store/useAuthStore";
 
 export default function Login() {
 	const { colors } = useTheme();

@@ -5,12 +5,12 @@ import {
 	ThemeProvider,
 } from "@react-navigation/native";
 import { Stack } from "expo-router";
+import { SQLiteProvider } from "expo-sqlite";
+import { StatusBar } from "expo-status-bar";
 import { useColorScheme } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { StatusBar } from "expo-status-bar";
-import { SQLiteProvider } from "expo-sqlite";
-import { initDb } from "../db/initDb";
 import AppContext from "../constants/AppContext";
+import { initDb } from "../db/initDb";
 
 export default function RootLayout() {
 	const colorScheme = useColorScheme();

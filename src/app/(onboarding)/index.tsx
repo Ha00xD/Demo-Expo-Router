@@ -1,6 +1,6 @@
-import { useAuthStore } from "@/src/store/useAuthStore";
 import { useRouter } from "expo-router";
 import { Text, TouchableOpacity, View } from "react-native";
+import { useAuthStore } from "@/src/store/useAuthStore";
 
 const OnBoardingScreen = () => {
 	const router = useRouter();

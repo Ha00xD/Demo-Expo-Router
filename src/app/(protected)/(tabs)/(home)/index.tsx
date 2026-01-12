@@ -1,11 +1,11 @@
-import { useGetOutlets } from "@/src/hooks/useGetOutlets";
-import { outletsData } from "@/src/mock/OutletData";
-import { useAuthStore } from "@/src/store/useAuthStore";
 import { FlashList } from "@shopify/flash-list";
 import { router } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
 import { useEffect, useState } from "react";
 import { Alert, Text, TouchableOpacity, View } from "react-native";
+import { useGetOutlets } from "@/src/hooks/useGetOutlets";
+import { outletsData } from "@/src/mock/OutletData";
+import { useAuthStore } from "@/src/store/useAuthStore";
 
 const HomeScreen = () => {
 	const db = useSQLiteContext();

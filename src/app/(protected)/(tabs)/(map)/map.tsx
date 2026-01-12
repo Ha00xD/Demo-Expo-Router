@@ -1,9 +1,9 @@
+import * as Location from "expo-location";
+import { useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import { Alert, StyleSheet, Text, View } from "react-native";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
-import * as Location from "expo-location";
 import Header from "@/src/components/HeaderBack";
-import { useLocalSearchParams } from "expo-router";
 
 const Map = () => {
 	const outlets = useLocalSearchParams();
