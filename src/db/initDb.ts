@@ -1,7 +1,7 @@
 import { SQLiteDatabase } from "expo-sqlite";
 
 export const initDb = async (db: SQLiteDatabase) => {
-  await db.execAsync(`
+	await db.execAsync(`
     PRAGMA journal_mode = WAL;
 
     CREATE TABLE IF NOT EXISTS outletStore (
@@ -26,6 +26,4 @@ export const initDb = async (db: SQLiteDatabase) => {
     );
 
   `);
-
-
 };
