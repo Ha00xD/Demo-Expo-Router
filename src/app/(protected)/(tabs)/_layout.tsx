@@ -71,7 +71,7 @@ export default function TabLayout() {
   };
 
   useEffect(() => {
-    if (true) {
+    if (showGuide) {
       openGuide(0);
     }
   }, [showGuide]);
