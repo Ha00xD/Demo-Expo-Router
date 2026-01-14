@@ -6,6 +6,7 @@ import { Alert, Text, TouchableOpacity, View } from "react-native";
 import { useGetOutlets } from "@/src/hooks/useGetOutlets";
 import { outletsData } from "@/src/mock/OutletData";
 import { useAuthStore } from "@/src/store/useAuthStore";
+import { useTheme } from "@react-navigation/native";
 
 const HomeScreen = () => {
   const db = useSQLiteContext();
@@ -68,7 +69,8 @@ const HomeScreen = () => {
             params: { id: item.id },
           })
         }
-        className="bg-white rounded-xl p-4 mb-3 border border-gray-200 "
+        className={`rounded-xl p-4 mb-3  `}
+        style={{ backgroundColor: colors.card }}
       >
         <View className="flex-row justify-between items-center">
           <Text className="text-lg font-semibold text-gray-800">
@@ -112,11 +114,16 @@ const HomeScreen = () => {
       },
     ]);
   };
-
+  const { colors } = useTheme();
   return (
-    <View className="flex-1 bg-gray-100 px-3">
-      <View className="flex-row items-center my-3 p-3 justify-between bg-slate-100">
-        <Text className="text-2xl font-bold text-gray-800 ">Outlets</Text>
+    <View className={`flex-1 px-3 bg-${colors}`}>
+      <View className="flex-row items-center my-3 p-3 justify-between ">
+        <Text
+          className="text-2xl font-bold text-gray-800 "
+          style={{ color: colors.text }}
+        >
+          Outlets
+        </Text>
         <TouchableOpacity
           onPress={handleLogout}
           activeOpacity={0.7}

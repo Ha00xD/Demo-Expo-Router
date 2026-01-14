@@ -1,7 +1,8 @@
+import { Colors } from "@/src/constants/theme";
 import React from "react";
 import { View, Text, TouchableOpacity, Dimensions, Image } from "react-native";
 import Modal from "react-native-modal";
-
+import { useColorScheme } from "nativewind";
 interface Target {
   x: number;
   y: number;
@@ -20,7 +21,12 @@ interface GuideProps {
   imageSource: any;
 }
 
-export const GuideOverlay = ({
+const ARROW_SIZE = 7;
+const PADDING = 10;
+const TOOLTIP_OFFSET = 15;
+const ARROW_LIMIT = 40;
+
+export const Walkthrough = ({
   visible,
   target,
   text,
@@ -32,78 +38,87 @@ export const GuideOverlay = ({
 }: GuideProps) => {
   const { x, y, width, height } = target;
   const { width: screenWidth, height: screenHeight } = Dimensions.get("window");
-
   const isAbove = y > screenHeight / 2;
-  const arrowSize = 7;
-  const verticalPosition = isAbove
-    ? { bottom: screenHeight - y + arrowSize + 15 }
-    : { top: y + height + arrowSize + 15 };
-  const arrowX = Math.max(40, Math.min(x + width / 2, screenWidth - 40));
-  const arrowPosition = arrowX - 20;
-  const padding = 10;
-  const radius = Math.max(width, height) / 2 + padding;
-
+  const highlightRadius = Math.max(width, height) / 2 + PADDING;
+  const tooltipPosition = isAbove
+    ? { bottom: screenHeight - y + ARROW_SIZE + TOOLTIP_OFFSET }
+    : { top: y + height + ARROW_SIZE + TOOLTIP_OFFSET };
+  const arrowCenterX = Math.max(
+    ARROW_LIMIT,
+    Math.min(x + width / 2, screenWidth - ARROW_LIMIT)
+  );
+  const arrowLeft = arrowCenterX - 22;
+  const { colorScheme, setColorScheme } = useColorScheme();
+  
   return (
     <Modal isVisible={visible} hasBackdrop={false} style={{ margin: 0 }}>
-      <View className="flex-1 bg-black/70">
+      <View className={`flex-1 dark:bg-black/40 bg-black/80`}>
+        {/* hhighlight sections*/}
         <View
           className="absolute"
           style={{
-            top: y - padding,
-            left: x - padding,
-            width: width + padding * 2,
-            height: height + padding * 2,
+            top: y - PADDING,
+            left: x - PADDING,
+            width: width + PADDING * 2,
+            height: height + PADDING * 2,
           }}
         >
           <View
-            className="flex-1 border border-white bg-white items-center justify-center"
-            style={{ borderRadius: radius }}
+            className={`flex-1 items-center justify-center bg-white`}
+            style={{ borderRadius: highlightRadius }}
           >
             <Image source={imageSource} className="w-6 h-6" />
           </View>
         </View>
-
+        {/* tool tips sec */}
         <View
           className="absolute left-5 right-5 bg-white p-5 rounded-xl shadow-md"
-          style={verticalPosition}
+          style={tooltipPosition}
         >
           <View
             className="absolute w-0 h-0"
             style={[
               {
-                left: arrowPosition,
-                [isAbove ? "bottom" : "top"]: -arrowSize,
-                borderLeftWidth: arrowSize,
-                borderRightWidth: arrowSize,
+                left: arrowLeft,
+                [isAbove ? "bottom" : "top"]: -ARROW_SIZE,
+                borderLeftWidth: ARROW_SIZE,
+                borderRightWidth: ARROW_SIZE,
                 borderLeftColor: "transparent",
                 borderRightColor: "transparent",
               },
               isAbove
                 ? {
-                    borderTopWidth: arrowSize,
+                    borderTopWidth: ARROW_SIZE,
                     borderTopColor: "white",
                   }
                 : {
-                    borderBottomWidth: arrowSize,
+                    borderBottomWidth: ARROW_SIZE,
                     borderBottomColor: "white",
                   },
             ]}
           />
 
-          <Text className="text-slate-900 text-lg font-bold mb-1">
-            Step {step + 1}
+          <Text className="text-lg font-bold text-slate-900 mb-1">
+            Step {step + 1} of {total}
           </Text>
-          <Text className="text-slate-600 text-base mb-6">{text}</Text>
+
+          <Text className="text-base text-slate-600 mb-6">{text}</Text>
 
           <View className="flex-row justify-between items-center">
-            <TouchableOpacity onPress={onSkip}>
-              <Text className="text-slate-800 font-bold">Skip</Text>
+            <TouchableOpacity
+              //onPress={onSkip}
+              onPress={() =>
+                setColorScheme(colorScheme === "light" ? "dark" : "light")
+              }
+            >
+              <Text className="font-bold text-slate-800">Skip</Text>
             </TouchableOpacity>
+
             <TouchableOpacity
               onPress={onNext}
               className="bg-emerald-900 px-8 py-3 rounded-full"
             >
-              <Text className="text-white font-bold">
+              <Text className="font-bold text-white">
                 {step === total - 1 ? "Got it!" : "Next"}
               </Text>
             </TouchableOpacity>

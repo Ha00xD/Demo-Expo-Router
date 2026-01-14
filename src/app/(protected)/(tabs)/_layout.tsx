@@ -3,10 +3,10 @@ import { Tabs } from "expo-router";
 import { useColorScheme, View } from "react-native";
 import { Colors } from "@/src/constants/theme";
 import { useEffect, useRef, useState } from "react";
-import { GuideOverlay } from "../../(onboarding)/components/GuideOverLay";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { useAuthStore } from "@/src/store/useAuthStore";
 import { Feather, Ionicons } from "@expo/vector-icons";
+import { Walkthrough } from "../../(onboarding)/components/Walkthrough";
 
 const GUIDE_STEPS = [
   {
@@ -71,7 +71,7 @@ export default function TabLayout() {
   };
 
   useEffect(() => {
-    if (showGuide) {
+    if (true) {
       openGuide(0);
     }
   }, [showGuide]);
@@ -88,6 +88,7 @@ export default function TabLayout() {
         screenOptions={{
           tabBarActiveTintColor: Colors[colorScheme ?? "dark"].tint,
           headerShown: false,
+          tabBarShowLabel: false,
         }}
       >
         <Tabs.Screen
@@ -163,7 +164,7 @@ export default function TabLayout() {
         />
       </Tabs>
       {target && (
-        <GuideOverlay
+        <Walkthrough
           visible={target}
           target={target}
           text={GUIDE_STEPS[step].text}
