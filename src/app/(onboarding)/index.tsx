@@ -1,10 +1,10 @@
+import { useStore } from "@/src/store/useStore";
 import { useRouter } from "expo-router";
 import { Text, TouchableOpacity, View } from "react-native";
-import { useAuthStore } from "@/src/store/useAuthStore";
 
 const OnBoardingScreen = () => {
   const router = useRouter();
-  const { setIsFirstTime } = useAuthStore();
+  const { setIsFirstTime } = useStore();
 
   const handleSkip = () => {
     setIsFirstTime(false);

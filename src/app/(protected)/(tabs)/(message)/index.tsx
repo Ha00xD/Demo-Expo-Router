@@ -12,6 +12,7 @@ import { Controller, useForm } from "react-hook-form";
 import { useSQLiteContext } from "expo-sqlite";
 import { useIsOnline } from "@/src/hooks/useIsOnline";
 import Axios from "@/src/constants/axios";
+import { useTheme } from "@/src/hooks/useTheme";
 
 const Message = () => {
   const {
@@ -26,11 +27,10 @@ const Message = () => {
       phonenumber: "",
     },
   });
-
   const db = useSQLiteContext();
   const isOnline = useIsOnline();
   const [pendingCount, setPendingCount] = useState(0);
-  const [data, setData] = useState();
+  const { colors } = useTheme();
 
   const loadPendingCount = async () => {
     const result = await db.getFirstAsync<{ count: number }>(
@@ -110,15 +110,13 @@ const Message = () => {
   };
 
   return (
-    <View className="flex-1 bg-white">
-      <View className="h-14 items-center justify-center bg-stone-200">
-        <Text className="text-lg font-semibold">Menu</Text>
-      </View>
-
+    <View className="flex-1" style={{ backgroundColor: colors.background }}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View className="p-4 gap-3">
           <View>
-            <Text className="mb-1 font-semibold text-gray-700">User Name</Text>
+            <Text style={{ color: colors.text }} className="mb-1 font-semibold">
+              User Name
+            </Text>
             <Controller
               control={control}
               name="username"
@@ -127,7 +125,12 @@ const Message = () => {
                 <TextInput
                   value={value}
                   onChangeText={onChange}
-                  className="border border-gray-300 rounded-lg px-3 py-3"
+                  placeholderTextColor={colors.text}
+                  style={{
+                    color: colors.text,
+                    borderColor: colors.border,
+                  }}
+                  className="rounded-lg border px-3 py-3"
                 />
               )}
             />
@@ -139,7 +142,7 @@ const Message = () => {
           </View>
 
           <View>
-            <Text className="mb-1 font-semibold text-gray-700">
+            <Text style={{ color: colors.text }} className="mb-1 font-semibold">
               Phone Number
             </Text>
             <Controller
@@ -150,8 +153,13 @@ const Message = () => {
                 <TextInput
                   value={value}
                   onChangeText={onChange}
+                  placeholderTextColor={colors.text}
                   keyboardType="numeric"
-                  className="border border-gray-300 rounded-lg px-3 py-3"
+                  style={{
+                    color: colors.text,
+                    borderColor: colors.border,
+                  }}
+                  className="rounded-lg border px-3 py-3"
                 />
               )}
             />
@@ -163,7 +171,9 @@ const Message = () => {
           </View>
 
           <View>
-            <Text className="mb-1 font-semibold text-gray-700">Password</Text>
+            <Text style={{ color: colors.text }} className="mb-1 font-semibold">
+              Password
+            </Text>
             <Controller
               control={control}
               name="password"
@@ -171,8 +181,13 @@ const Message = () => {
               render={({ field: { value, onChange } }) => (
                 <TextInput
                   value={value}
+                  placeholderTextColor={colors.text}
+                  style={{
+                    color: colors.text,
+                    borderColor: colors.border,
+                  }}
                   onChangeText={onChange}
-                  className="border border-gray-300 rounded-lg px-3 py-3"
+                  className="rounded-lg border px-3 py-3"
                   secureTextEntry={true}
                 />
               )}
@@ -187,25 +202,32 @@ const Message = () => {
           <TouchableOpacity
             onPress={handleSubmit(saveUserInfo)}
             className="border rounded-lg py-3 items-center"
+            style={{ backgroundColor: colors.text }}
           >
-            <Text className="font-semibold">Submit</Text>
+            <Text style={{ color: colors.primary }} className="font-semibold">
+              Submit
+            </Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             onPress={() => db.runAsync("DELETE FROM usersInfo")}
             className="border rounded-lg py-3 items-center"
+            style={{ backgroundColor: colors.text }}
           >
-            <Text className="font-semibold">Delete</Text>
+            <Text style={{ color: colors.primary }} className="font-semibold">
+              Delete
+            </Text>
           </TouchableOpacity>
 
           <TouchableOpacity
-            disabled={!isOnline}
+            disabled={pendingCount === 0}
             onPress={syncUserInfo}
             className={`border rounded-lg py-3 items-center ${
               !isOnline ? "opacity-40" : ""
             }`}
+            style={{ backgroundColor: colors.text }}
           >
-            <Text className="font-semibold">
+            <Text style={{ color: colors.primary }} className="font-semibold">
               Sync UserInfo ({pendingCount})
             </Text>
           </TouchableOpacity>

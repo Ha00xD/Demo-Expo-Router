@@ -5,51 +5,73 @@
 
 import { Platform } from "react-native";
 
-const tintColorLight = "#000";
+export const dark = {
+  primary: "#000000",
+  secondary: "#92929b",
+  background: "#09090A",
+  card: "#1d1d21",
+  red: "#e50914",
+  green: "#169127",
+  text: "#ffffff",
+  border: "rgb(199, 199, 204)",
+  button: "#FFFFFF",
+  box: "#0c0c0e",
+  signInBtn: "#121212",
+  borderBottomColor: "rgba(255, 255, 255,0.1)",
+  modalbg: "#1d1d21",
+  modalcard: "#0c0c0e",
+  toast: "#fff",
+  tomatoToast: "#E50914",
+  successText: "#47e291",
+  warning: "#342c23",
+  warningText: "#e9ac4a",
+  tint: "rgb(242, 242, 242)",
+};
 
-const tintColorDark = "#fff";
-
-export const Colors = {
-	light: {
-		text: "#11181C",
-		background: "#fff",
-		tint: tintColorLight,
-		icon: "#687076",
-		tabIconDefault: "#687076",
-		tabIconSelected: tintColorLight,
-	},
-	dark: {
-		text: "#ECEDEE",
-		background: "#151718",
-		tint: tintColorDark,
-		icon: "#9BA1A6",
-		tabIconDefault: "#9BA1A6",
-		tabIconSelected: tintColorDark,
-	},
+export const light = {
+  primary: "#FFFFFF",
+  background: "#FFFFFF",
+  card: "#E4E4E4",
+  red: "#e50914",
+  green: "#169127",
+  text: "#09090A",
+  border: "rgb(0, 0, 0)",
+  secondary: "#92929b",
+  button: "#222222",
+  signInBtn: "#E4E4E4",
+  box: "#0c0c0e",
+  modalbg: "#ffffff",
+  modalcard: "#E4E4E4",
+  toast: "#E4E4E4",
+  tomatoToast: "#92929b",
+  successText: "#47e291",
+  warning: "#342c23",
+  warningText: "#e9ac4a",
+  tint: "rgb(1, 1, 1)",
 };
 
 export const Fonts = Platform.select({
-	ios: {
-		/** iOS `UIFontDescriptorSystemDesignDefault` */
-		sans: "system-ui",
-		/** iOS `UIFontDescriptorSystemDesignSerif` */
-		serif: "ui-serif",
-		/** iOS `UIFontDescriptorSystemDesignRounded` */
-		rounded: "ui-rounded",
-		/** iOS `UIFontDescriptorSystemDesignMonospaced` */
-		mono: "ui-monospace",
-	},
-	default: {
-		sans: "normal",
-		serif: "serif",
-		rounded: "normal",
-		mono: "monospace",
-	},
-	web: {
-		sans: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
-		serif: "Georgia, 'Times New Roman', serif",
-		rounded:
-			"'SF Pro Rounded', 'Hiragino Maru Gothic ProN', Meiryo, 'MS PGothic', sans-serif",
-		mono: "SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-	},
+  ios: {
+    /** iOS `UIFontDescriptorSystemDesignDefault` */
+    sans: "system-ui",
+    /** iOS `UIFontDescriptorSystemDesignSerif` */
+    serif: "ui-serif",
+    /** iOS `UIFontDescriptorSystemDesignRounded` */
+    rounded: "ui-rounded",
+    /** iOS `UIFontDescriptorSystemDesignMonospaced` */
+    mono: "ui-monospace",
+  },
+  default: {
+    sans: "normal",
+    serif: "serif",
+    rounded: "normal",
+    mono: "monospace",
+  },
+  web: {
+    sans: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+    serif: "Georgia, 'Times New Roman', serif",
+    rounded:
+      "'SF Pro Rounded', 'Hiragino Maru Gothic ProN', Meiryo, 'MS PGothic', sans-serif",
+    mono: "SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+  },
 });

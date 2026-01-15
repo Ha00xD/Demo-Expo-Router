@@ -1,12 +1,12 @@
 import Entypo from "@expo/vector-icons/Entypo";
 import { Tabs } from "expo-router";
-import { useColorScheme, View } from "react-native";
-import { Colors } from "@/src/constants/theme";
+import { View } from "react-native";
 import { useEffect, useRef, useState } from "react";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import { useAuthStore } from "@/src/store/useAuthStore";
 import { Feather, Ionicons } from "@expo/vector-icons";
 import { Walkthrough } from "../../(onboarding)/components/Walkthrough";
+import { useStore } from "@/src/store/useStore";
+import { useTheme } from "@/src/hooks/useTheme";
 
 const GUIDE_STEPS = [
   {
@@ -37,8 +37,8 @@ const GUIDE_STEPS = [
 ];
 
 export default function TabLayout() {
-  const { showGuide, setShowGuide } = useAuthStore();
-  const colorScheme = useColorScheme();
+  const { colors, isDark } = useTheme();
+  const { showGuide, setShowGuide } = useStore();
   const homeRef = useRef<View>(null);
   const [step, setStep] = useState(0);
   const [target, setTarget] = useState<any>(null);
@@ -86,9 +86,13 @@ export default function TabLayout() {
     <>
       <Tabs
         screenOptions={{
-          tabBarActiveTintColor: Colors[colorScheme ?? "dark"].tint,
+          tabBarActiveTintColor: colors.tint,
           headerShown: false,
           tabBarShowLabel: false,
+          tabBarStyle: {
+            backgroundColor: colors.card,
+            borderTopWidth: 0,
+          },
         }}
       >
         <Tabs.Screen
@@ -122,9 +126,10 @@ export default function TabLayout() {
               <View
                 ref={scanRef}
                 style={{
-                  backgroundColor: Colors[colorScheme ?? "dark"].background,
+                  backgroundColor: colors.card,
                 }}
-                className="w-[55px] h-[55px] rounded-full justify-center items-center absolute bottom-[5px] shadow-sm elevation-2"
+                className={`w-[55px] h-[55px] rounded-full justify-center items-center absolute bottom-[5px] 
+           ${isDark ? "shadow-lg shadow-gray-900/60" : "shadow-sm"} elevation-2`}
               >
                 <MaterialIcons name="qr-code-scanner" size={24} color={color} />
               </View>

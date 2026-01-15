@@ -11,12 +11,15 @@ import { useColorScheme } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import AppContext from "../constants/AppContext";
 import { initDb } from "../db/initDb";
+import { useTheme } from "../hooks/useTheme";
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
   const insets = useSafeAreaInsets();
-
   const val = {};
+  const { colors } = useTheme();
+
+  console.log("Check colors>>>>>", colors);
 
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>

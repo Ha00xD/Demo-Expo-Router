@@ -1,104 +1,70 @@
 import Header from "@/src/components/HeaderBack";
+import { useTheme } from "@/src/hooks/useTheme";
 import {
   Entypo,
   MaterialCommunityIcons,
   MaterialIcons,
 } from "@expo/vector-icons";
-import React, { useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Appearance,
-  useColorScheme,
-} from "react-native";
-
-type ThemeOption = "light" | "dark" | "system";
+import { useStore } from "@/src/store/useStore";
+import React from "react";
+import { View, Text, TouchableOpacity } from "react-native";
 
 export default function ThemeScreen() {
-  const systemTheme = useColorScheme();
-  const [theme, setTheme] = useState<ThemeOption>("system");
+  const { colors } = useTheme();
+  const { userTheme, setUserTheme } = useStore();
 
-  useEffect(() => {
-    if (theme === "system") {
-      Appearance.setColorScheme(null);
-    } else {
-      Appearance.setColorScheme(theme);
-    }
-  }, [theme]);
-
-  const isDark = theme === "system" ? systemTheme === "dark" : theme === "dark";
-
-  const iconColor = isDark ? "white" : "black";
-
-  const renderIcon = (value: ThemeOption) => {
-    switch (value) {
-      case "light":
-        return <Entypo name="light-up" size={20} color={iconColor} />;
-      case "dark":
-        return <MaterialIcons name="dark-mode" size={20} color={iconColor} />;
-      case "system":
-        return (
-          <MaterialCommunityIcons
-            name="theme-light-dark"
-            size={20}
-            color={iconColor}
-          />
-        );
-    }
-  };
-
-  const RadioItem = ({
-    label,
-    value,
-  }: {
-    label: string;
-    value: ThemeOption;
-  }) => {
-    const active = theme === value;
-
-    return (
-      <TouchableOpacity
-        onPress={() => setTheme(value)}
-        className={`flex-row items-center justify-between rounded-xl p-4
-          ${isDark ? "bg-zinc-800" : "bg-zinc-100"}`}
-      >
-        <View className="flex-row items-center">
-          {renderIcon(value)}
-
-          <Text
-            className={`ml-3 text-base ${isDark ? "text-white" : "text-black"}`}
-          >
-            {label}
-          </Text>
-        </View>
-
-        <View
-          className={`h-5 w-5 rounded-full border-2 items-center justify-center
-            ${active ? "border-emerald-500" : "border-gray-400"}`}
-        >
-          {active && (
-            <View className="h-2.5 w-2.5 rounded-full bg-emerald-500" />
-          )}
-        </View>
-      </TouchableOpacity>
-    );
-  };
+  const RadioButton = ({ selected }: { selected: boolean }) => (
+    <MaterialCommunityIcons
+      name={selected ? "radiobox-marked" : "radiobox-blank"}
+      size={24}
+      color={selected ? colors.green : colors.text}
+    />
+  );
 
   return (
-    <View className={`flex-1  gap-4 ${isDark ? "bg-zinc-900" : "bg-white"}`}>
-      <Header />
-      <Text
-        className={`text-2xl font-bold mb-4 ${
-          isDark ? "text-white" : "text-black"
-        }`}
-      >
-        Theme Settings
-      </Text>
+    <View className="flex-1" style={{ backgroundColor: colors.background }}>
+      <Header title="Theme Setting" />
+      <View className="p-5 gap-3">
+        <TouchableOpacity
+          className="flex-row items-center justify-between rounded-xl p-3"
+          onPress={() => setUserTheme("dark")}
+          style={{ backgroundColor: colors.card }}
+        >
+          <View className="flex-row items-center gap-3">
+            <MaterialIcons name="dark-mode" size={24} color={colors.text} />
+            <Text style={{ color: colors.text }}>Dark Mode</Text>
+          </View>
+          <RadioButton selected={userTheme === "dark"} />
+        </TouchableOpacity>
 
-      <RadioItem label="Light Mode" value="light" />
-      <RadioItem label="Dark Mode" value="dark" />
-      <RadioItem label="System Default" value="system" />
+        <TouchableOpacity
+          className="flex-row items-center justify-between rounded-xl p-3"
+          onPress={() => setUserTheme("light")}
+          style={{ backgroundColor: colors.card }}
+        >
+          <View className="flex-row items-center gap-3">
+            <Entypo name="light-up" size={24} color={colors.text} />
+            <Text style={{ color: colors.text }}>Light Mode</Text>
+          </View>
+          <RadioButton selected={userTheme === "light"} />
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          className="flex-row items-center justify-between rounded-xl p-3"
+          onPress={() => setUserTheme("system")}
+          style={{ backgroundColor: colors.card }}
+        >
+          <View className="flex-row items-center gap-3">
+            <MaterialCommunityIcons
+              name="theme-light-dark"
+              size={24}
+              color={colors.text}
+            />
+            <Text style={{ color: colors.text }}>System Default</Text>
+          </View>
+          <RadioButton selected={userTheme === "system"} />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }

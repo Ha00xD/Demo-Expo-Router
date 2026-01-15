@@ -1,8 +1,8 @@
 import { Redirect, Stack } from "expo-router";
-import { useAuthStore } from "@/src/store/useAuthStore";
+import { useStore } from "@/src/store/useStore";
 
 const AuthLayout = () => {
-  const { isFirstTime, token } = useAuthStore();
+  const { isFirstTime, token } = useStore();
 
   console.log("Is first time", isFirstTime);
 

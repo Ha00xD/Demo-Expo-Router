@@ -1,21 +1,20 @@
 import { FlashList } from "@shopify/flash-list";
 import { router } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Alert, Text, TouchableOpacity, View } from "react-native";
 import { useGetOutlets } from "@/src/hooks/useGetOutlets";
 import { outletsData } from "@/src/mock/OutletData";
-import { useAuthStore } from "@/src/store/useAuthStore";
-import { useTheme } from "@react-navigation/native";
+import { useStore } from "@/src/store/useStore";
+import { useTheme } from "@/src/hooks/useTheme";
 
 const HomeScreen = () => {
   const db = useSQLiteContext();
   const { outlets, refreshOutlets } = useGetOutlets();
-  const [isLoading, setIsLoading] = useState(false);
-  const { setToken } = useAuthStore();
+  const { setToken } = useStore();
+  const { colors } = useTheme();
 
   const insertOutlets = async () => {
-    setIsLoading(true);
     try {
       for (const outlet of outletsData) {
         await db.runAsync(
@@ -35,7 +34,6 @@ const HomeScreen = () => {
       }
       await refreshOutlets();
       Alert.alert("Success", "Outlets inserted successfully");
-      setIsLoading(false);
     } catch (error) {
       console.log("Error At InsertOutlets", error);
     }
@@ -73,29 +71,38 @@ const HomeScreen = () => {
         style={{ backgroundColor: colors.card }}
       >
         <View className="flex-row justify-between items-center">
-          <Text className="text-lg font-semibold text-gray-800">
+          <Text
+            style={{ color: colors.text }}
+            className="text-lg font-semibold"
+          >
             {item.name}
           </Text>
           <Text
-            className={`text-xs px-2 py-1 rounded-full ${
-              item.status === "done"
-                ? "bg-green-100 text-green-700"
-                : "bg-red-100 text-red-700"
-            }`}
+            style={{ color: colors.text }}
+            className={`text-xs px-2 py-1 rounded-full`}
+            style={{
+              color: item.status == "pending" ? colors.red : colors.green,
+            }}
           >
             {item.status}
           </Text>
         </View>
 
-        <Text className="text-gray-600 mt-1">
+        <Text style={{ color: colors.text }} className="mt-1">
           {item.street}, {item.city}
         </Text>
 
-        <Text className="text-gray-400 text-xs mt-1">Date: {item.date}</Text>
+        <Text style={{ color: colors.text }} className="text-xs mt-1">
+          Date: {item.date}
+        </Text>
 
         <View className="flex-row justify-between mt-3">
-          <Text className="text-xs text-gray-500">Lat: {item.latitude}</Text>
-          <Text className="text-xs text-gray-500">Lng: {item.longitude}</Text>
+          <Text style={{ color: colors.text }} className="text-xs ">
+            Lat: {item.latitude}
+          </Text>
+          <Text style={{ color: colors.text }} className="text-xs ">
+            Lng: {item.longitude}
+          </Text>
         </View>
       </TouchableOpacity>
     );
@@ -114,9 +121,11 @@ const HomeScreen = () => {
       },
     ]);
   };
-  const { colors } = useTheme();
   return (
-    <View className={`flex-1 px-3 bg-${colors}`}>
+    <View
+      className={`flex-1 px-3`}
+      style={{ backgroundColor: colors.background }}
+    >
       <View className="flex-row items-center my-3 p-3 justify-between ">
         <Text
           className="text-2xl font-bold text-gray-800 "
@@ -127,7 +136,8 @@ const HomeScreen = () => {
         <TouchableOpacity
           onPress={handleLogout}
           activeOpacity={0.7}
-          className="px-4 py-2 rounded-lg bg-red-500 w-24 items-center"
+          className="px-4 py-2 rounded-lg w-24 items-center"
+          style={{ backgroundColor: colors.red }}
         >
           <Text className="text-sm font-medium text-stone-100">Logout</Text>
         </TouchableOpacity>
@@ -135,17 +145,19 @@ const HomeScreen = () => {
 
       <View className="flex-row mb-4 space-x-3 gap-5">
         <TouchableOpacity
-          className="flex-1 bg-stone-500 py-3 rounded-lg justify-center"
+          className="flex-1 py-3 rounded-lg justify-center"
           onPress={insertOutlets}
+          style={{ backgroundColor: colors.green }}
         >
-          <Text className="text-white text-center font-semibold">
+          <Text className="text-white text-sm text-center font-semibold">
             Insert Outlets
           </Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-          className="flex-1 bg-red-700 py-3 rounded-lg justify-center"
+          className="flex-1 py-3 rounded-lg justify-center"
           onPress={deleteOutlets}
+          style={{ backgroundColor: colors.red }}
         >
           <Text className="text-white text-center font-semibold">
             Delete All
@@ -153,10 +165,11 @@ const HomeScreen = () => {
         </TouchableOpacity>
 
         <TouchableOpacity
-          className="flex-1 bg-red-700 py-3 rounded-lg justify-center"
+          className="flex-1 py-3 rounded-lg justify-center"
           onPress={() =>
             router.push({ pathname: "/(protected)/(tabs)/(map)/map" })
           }
+          style={{ backgroundColor: colors.red }}
         >
           <Text className="text-white text-center font-semibold">Map</Text>
         </TouchableOpacity>

@@ -1,6 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { useTheme } from "../hooks/useTheme";
 
 type HeaderProps = {
   title?: string;
@@ -13,18 +14,23 @@ export default function Header({
   showBack = true,
   right,
 }: HeaderProps) {
+  const { colors } = useTheme();
+
   return (
-    <View className="flex-row justify-center items-center py-3 bg-white">
+    <View
+      className={`flex-row justify-center items-center py-3 `}
+      style={{ backgroundColor: colors.card }}
+    >
       <View style={styles.side}>
         {showBack && (
           <TouchableOpacity onPress={() => router.back()}>
-            <Ionicons name="chevron-back" size={26} />
+            <Ionicons color={colors.text} name="chevron-back" size={26} />
           </TouchableOpacity>
         )}
       </View>
 
       <View style={styles.center}>
-        <Text numberOfLines={1} style={styles.title}>
+        <Text numberOfLines={1} style={{ ...styles.title, color: colors.text }}>
           {title}
         </Text>
       </View>
