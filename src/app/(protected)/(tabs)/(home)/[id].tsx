@@ -2,7 +2,7 @@ import { router, useLocalSearchParams } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
 import { useEffect, useState } from "react";
 import { ActivityIndicator, Text, TouchableOpacity, View } from "react-native";
-import Header from "@/src/components/HeaderBack";
+import Header from "@/src/components/Header";
 import { useTheme } from "@/src/hooks/useTheme";
 
 const OutletDetailsScreen = () => {
@@ -98,11 +98,17 @@ const OutletDetailsScreen = () => {
   );
 };
 
-const InfoRow = ({ label, value }: { label: string; value: string }) => (
-  <View className="flex-row justify-between">
-    <Text>{label}</Text>
-    <Text className="font-medium">{value}</Text>
-  </View>
-);
+const InfoRow = ({ label, value }: { label: string; value: string }) => {
+  const { colors } = useTheme();
+
+  return (
+    <View className="flex-row justify-between">
+      <Text style={{ color: colors.text }}>{label}</Text>
+      <Text style={{ color: colors.text }} className="font-medium">
+        {value}
+      </Text>
+    </View>
+  );
+};
 
 export default OutletDetailsScreen;

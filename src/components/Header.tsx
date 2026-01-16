@@ -49,6 +49,7 @@ const styles = StyleSheet.create({
   side: {
     width: 50,
     alignItems: "flex-start",
+    marginLeft: 10,
   },
   sideRight: {
     width: 50,

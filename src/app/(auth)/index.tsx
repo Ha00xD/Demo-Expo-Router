@@ -79,17 +79,24 @@ export default function Login() {
           <View className="items-center mb-5">
             <View
               className="w-24 h-24 rounded-full items-center justify-center"
-              style={{ backgroundColor: colors.card }}
-            />
+              // style={{ backgroundColor: colors.card }}
+            >
+              <Text
+                className="text-4xl text-center font-bold"
+                style={{ color: colors.text }}
+              >
+                Login
+              </Text>
+            </View>
           </View>
 
           <View>
-            <Text
+            {/* <Text
               className="text-3xl font-normal text-center"
               style={{ color: colors.text }}
             >
               Login
-            </Text>
+            </Text> */}
           </View>
 
           <View>

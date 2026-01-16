@@ -1,18 +1,26 @@
 import { FlashList } from "@shopify/flash-list";
 import { router } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Alert, Text, TouchableOpacity, View } from "react-native";
 import { useGetOutlets } from "@/src/hooks/useGetOutlets";
 import { outletsData } from "@/src/mock/OutletData";
 import { useStore } from "@/src/store/useStore";
 import { useTheme } from "@/src/hooks/useTheme";
+import {
+  AntDesign,
+  Feather,
+  FontAwesome5,
+  MaterialCommunityIcons,
+  MaterialIcons,
+} from "@expo/vector-icons";
 
 const HomeScreen = () => {
   const db = useSQLiteContext();
   const { outlets, refreshOutlets } = useGetOutlets();
   const { setToken } = useStore();
   const { colors } = useTheme();
+  const [showCalendar, setShowCalendar] = useState(false);
 
   const insertOutlets = async () => {
     try {
@@ -67,7 +75,7 @@ const HomeScreen = () => {
             params: { id: item.id },
           })
         }
-        className={`rounded-xl p-4 mb-3  `}
+        className={`rounded-xl p-4 mb-5`}
         style={{ backgroundColor: colors.card }}
       >
         <View className="flex-row justify-between items-center">
@@ -121,6 +129,7 @@ const HomeScreen = () => {
       },
     ]);
   };
+
   return (
     <View
       className={`flex-1 px-3`}
@@ -128,50 +137,64 @@ const HomeScreen = () => {
     >
       <View className="flex-row items-center my-3 p-3 justify-between ">
         <Text
-          className="text-2xl font-bold text-gray-800 "
+          className="text-2xl font-bold text-gray-800"
           style={{ color: colors.text }}
         >
-          Outlets
+          OUTLETS
         </Text>
         <TouchableOpacity
           onPress={handleLogout}
           activeOpacity={0.7}
-          className="px-4 py-2 rounded-lg w-24 items-center"
+          className="justify-center rounded-full w-12 h-12 items-center"
           style={{ backgroundColor: colors.red }}
         >
-          <Text className="text-sm font-medium text-stone-100">Logout</Text>
+          <MaterialIcons name="logout" size={20} color={colors.primary} />
+          {/* <Text className="text-sm font-medium text-stone-100">Logout</Text> */}
         </TouchableOpacity>
       </View>
 
-      <View className="flex-row mb-4 space-x-3 gap-5">
+      <View className="flex-row mb-4 space-x-3 gap-5 justify-center">
         <TouchableOpacity
-          className="flex-1 py-3 rounded-lg justify-center"
+          className="w-[50px] h-[50px] justify-center bg-emerald-600 rounded-full items-center"
           onPress={insertOutlets}
-          style={{ backgroundColor: colors.green }}
         >
-          <Text className="text-white text-sm text-center font-semibold">
-            Insert Outlets
-          </Text>
+          <MaterialCommunityIcons
+            name="download"
+            size={20}
+            color={colors.primary}
+          />
+          {/* <Text className="text-white text-sm text-center font-semibold">
+            Get Outlets
+          </Text> */}
         </TouchableOpacity>
 
         <TouchableOpacity
-          className="flex-1 py-3 rounded-lg justify-center"
+          className="w-[50px] h-[50px] justify-center rounded-full items-center"
           onPress={deleteOutlets}
           style={{ backgroundColor: colors.red }}
         >
-          <Text className="text-white text-center font-semibold">
+          <Feather name="trash-2" size={20} color={colors.primary} />
+          {/* <Text className="text-white text-center font-semibold">
             Delete All
-          </Text>
+          </Text> */}
         </TouchableOpacity>
 
         <TouchableOpacity
-          className="flex-1 py-3 rounded-lg justify-center"
+          className="w-[50px] h-[50px] justify-center bg-slate-500 rounded-full items-center"
           onPress={() =>
             router.push({ pathname: "/(protected)/(tabs)/(map)/map" })
           }
-          style={{ backgroundColor: colors.red }}
+          // style={{ backgroundColor: colors.red }}
         >
-          <Text className="text-white text-center font-semibold">Map</Text>
+          <FontAwesome5
+            name="map-marked-alt"
+            size={20}
+            color={colors.primary}
+          />
+          {/* <Text className="text-white text-center font-semibold">Map</Text> */}
+        </TouchableOpacity>
+        <TouchableOpacity className="w-[50px] h-[50px] justify-center bg-stone-500 rounded-full items-center">
+          <AntDesign name="calendar" size={24} color={colors.primary} />
         </TouchableOpacity>
       </View>
 

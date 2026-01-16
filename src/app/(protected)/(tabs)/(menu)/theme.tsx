@@ -1,4 +1,4 @@
-import Header from "@/src/components/HeaderBack";
+import Header from "@/src/components/Header";
 import { useTheme } from "@/src/hooks/useTheme";
 import {
   Entypo,
