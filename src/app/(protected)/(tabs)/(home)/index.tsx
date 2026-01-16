@@ -14,6 +14,7 @@ import {
   MaterialCommunityIcons,
   MaterialIcons,
 } from "@expo/vector-icons";
+import CalendarModal from "./components/CalendarModal";
 
 const HomeScreen = () => {
   const db = useSQLiteContext();
@@ -131,10 +132,7 @@ const HomeScreen = () => {
   };
 
   return (
-    <View
-      className={`flex-1 px-3`}
-      style={{ backgroundColor: colors.background }}
-    >
+    <View className={`flex-1`} style={{ backgroundColor: colors.background }}>
       <View className="flex-row items-center my-3 p-3 justify-between ">
         <Text
           className="text-2xl font-bold text-gray-800"
@@ -149,7 +147,6 @@ const HomeScreen = () => {
           style={{ backgroundColor: colors.red }}
         >
           <MaterialIcons name="logout" size={20} color={colors.primary} />
-          {/* <Text className="text-sm font-medium text-stone-100">Logout</Text> */}
         </TouchableOpacity>
       </View>
 
@@ -193,7 +190,10 @@ const HomeScreen = () => {
           />
           {/* <Text className="text-white text-center font-semibold">Map</Text> */}
         </TouchableOpacity>
-        <TouchableOpacity className="w-[50px] h-[50px] justify-center bg-stone-500 rounded-full items-center">
+        <TouchableOpacity
+          onPress={() => setShowCalendar(!showCalendar)}
+          className="w-[50px] h-[50px] justify-center bg-stone-500 rounded-full items-center"
+        >
           <AntDesign name="calendar" size={24} color={colors.primary} />
         </TouchableOpacity>
       </View>
@@ -207,6 +207,10 @@ const HomeScreen = () => {
             <Text className="text-gray-400">No outlets found</Text>
           </View>
         }
+      />
+      <CalendarModal
+        isVisible={showCalendar}
+        onClose={() => setShowCalendar(!showCalendar)}
       />
     </View>
   );

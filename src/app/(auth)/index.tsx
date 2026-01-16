@@ -82,7 +82,7 @@ export default function Login() {
               // style={{ backgroundColor: colors.card }}
             >
               <Text
-                className="text-4xl text-center font-bold"
+                className="text-3xl text-center font-bold"
                 style={{ color: colors.text }}
               >
                 Login

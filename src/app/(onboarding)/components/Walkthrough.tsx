@@ -39,7 +39,6 @@ export const Walkthrough = ({
   const { x, y, width, height } = target;
   const { width: screenWidth, height: screenHeight } = Dimensions.get("window");
   const isAbove = y > screenHeight / 2;
-  const highlightRadius = Math.max(width, height) / 2 + PADDING;
   const tooltipPosition = isAbove
     ? { bottom: screenHeight - y + ARROW_SIZE + TOOLTIP_OFFSET }
     : { top: y + height + ARROW_SIZE + TOOLTIP_OFFSET };
@@ -49,26 +48,32 @@ export const Walkthrough = ({
   );
   const arrowLeft = arrowCenterX - 22;
   const { colorScheme, setColorScheme } = useColorScheme();
-  
+  const size = Math.max(width, height) + PADDING * 1.5;
+  const radius = size / 2;
+  const centeredTop = y - (size - height) / 2;
+  const centeredLeft = x - (size - width) / 2;
+
   return (
     <Modal isVisible={visible} hasBackdrop={false} style={{ margin: 0 }}>
       <View className={`flex-1 dark:bg-black/40 bg-black/80`}>
-        {/* hhighlight sections*/}
         <View
-          className="absolute"
           style={{
-            top: y - PADDING,
-            left: x - PADDING,
-            width: width + PADDING * 2,
-            height: height + PADDING * 2,
+            position: "absolute",
+            top: centeredTop,
+            left: centeredLeft,
+            width: size,
+            height: size,
+            borderRadius: radius,
+            backgroundColor: "white",
+            alignItems: "center",
+            justifyContent: "center",
           }}
         >
-          <View
-            className={`flex-1 items-center justify-center bg-white`}
-            style={{ borderRadius: highlightRadius }}
-          >
-            <Image source={imageSource} className="w-6 h-6" />
-          </View>
+          <Image
+            source={imageSource}
+            className="w-6 h-6"
+            resizeMode="contain"
+          />
         </View>
         {/* tool tips sec */}
         <View
