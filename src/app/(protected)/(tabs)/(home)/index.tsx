@@ -38,7 +38,7 @@ const HomeScreen = () => {
             outlet.status,
             outlet.latitude,
             outlet.longitude,
-          ]
+          ],
         );
       }
       await refreshOutlets();
@@ -190,12 +190,12 @@ const HomeScreen = () => {
           />
           {/* <Text className="text-white text-center font-semibold">Map</Text> */}
         </TouchableOpacity>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           onPress={() => setShowCalendar(!showCalendar)}
           className="w-[50px] h-[50px] justify-center bg-stone-500 rounded-full items-center"
         >
           <AntDesign name="calendar" size={24} color={colors.primary} />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
 
       <FlashList

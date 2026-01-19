@@ -1,16 +1,14 @@
 import "../../global.css";
 import { Stack } from "expo-router";
 import { SQLiteProvider } from "expo-sqlite";
-import { StatusBar } from "expo-status-bar";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import AppContext from "../constants/AppContext";
 import { initDb } from "../db/initDb";
-import { useTheme } from "../hooks/useTheme";
+import { StatusBar } from "react-native";
 
 export default function RootLayout() {
   const insets = useSafeAreaInsets();
   const val = {};
-  const { isDark } = useTheme();
 
   return (
     <AppContext.Provider value={val}>
@@ -20,14 +18,13 @@ export default function RootLayout() {
         options={{ useNewConnection: false }}
       >
         <Stack
-          initialRouteName="(auth)"
           screenOptions={{
             headerShown: false,
             contentStyle: { paddingTop: insets.top },
             animation: "none",
           }}
         />
-        <StatusBar style={isDark ? "dark" : "light"} animated={true} />
+        <StatusBar barStyle={"default"} />
       </SQLiteProvider>
     </AppContext.Provider>
   );
